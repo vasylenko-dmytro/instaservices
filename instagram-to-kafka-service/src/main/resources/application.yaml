@@ -1,0 +1,23 @@
+instagram-to-kafka-service:
+  instagram-keywords:
+    - amazonwebservices
+    - aws
+    - azurecloud
+    - docker
+    - elasticsearch
+    - git
+    - googlecloud
+    - html
+    - javaprogramming
+    - javascript
+    - linux
+    - microservices
+    - mongodb
+    - nosql
+    - postgresql
+    - softwareengineering
+    - springboot
+    - sql
+    - webdeveloper
+    - webdevelopment
+  welcome-message: Hello Folks!
