@@ -1,8 +1,8 @@
-package com.vasylenko.service;
+package com.vasylenko.edu.ig.to.kafka.service.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.vasylenko.config.InstagramToKafkaServiceConfigData;
+import com.vasylenko.edu.config.InstagramToKafkaServiceConfigData;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

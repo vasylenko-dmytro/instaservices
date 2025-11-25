@@ -1,8 +1,8 @@
-package com.vasylenko.listener;
+package com.vasylenko.edu.ig.to.kafka.service.listener;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.vasylenko.model.IGPost;
+import com.vasylenko.edu.ig.to.kafka.service.model.IGPost;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
-import static com.vasylenko.InstagramToKafkaServiceApplication.LOGGER;
+import static com.vasylenko.edu.ig.to.kafka.service.InstagramToKafkaServiceApplication.LOGGER;
 
 public class HashtagListener {
 

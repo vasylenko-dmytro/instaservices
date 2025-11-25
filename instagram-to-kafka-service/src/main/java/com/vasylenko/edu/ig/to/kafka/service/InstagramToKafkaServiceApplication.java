@@ -1,16 +1,18 @@
-package com.vasylenko;
+package com.vasylenko.edu.ig.to.kafka.service;
 
 import com.facebook.ads.sdk.APIException;
-import com.vasylenko.config.InstagramToKafkaServiceConfigData;
-import com.vasylenko.listener.HashtagListener;
+import com.vasylenko.edu.config.InstagramToKafkaServiceConfigData;
+import com.vasylenko.edu.ig.to.kafka.service.listener.HashtagListener;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
+@ComponentScan(basePackages = "com.vasylenko.edu")
 public class InstagramToKafkaServiceApplication implements CommandLineRunner {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(InstagramToKafkaServiceApplication.class);

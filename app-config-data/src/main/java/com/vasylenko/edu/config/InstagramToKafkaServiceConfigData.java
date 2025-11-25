@@ -1,4 +1,4 @@
-package com.vasylenko.config;
+package com.vasylenko.edu.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
