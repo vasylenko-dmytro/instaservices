@@ -6,3 +6,11 @@ include("kafka")
 include("kafka:kafka-admin")
 include("kafka:kafka-model")
 include("kafka:kafka-producer")
+include("common-config")
+
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}

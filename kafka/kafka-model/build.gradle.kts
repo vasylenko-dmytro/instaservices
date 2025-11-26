@@ -1,5 +1,6 @@
 plugins {
-    id("java")
+    java
+    id("com.github.davidmc24.gradle.plugin.avro") version "1.9.1"
 }
 
 group = "com.vasylenko.edu"
@@ -10,11 +11,9 @@ repositories {
 }
 
 dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    implementation("org.apache.avro:avro:1.12.1")
 }
 
-tasks.test {
-    useJUnitPlatform()
+avro {
+    fieldVisibility = "PUBLIC"
 }

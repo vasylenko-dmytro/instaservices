@@ -21,3 +21,20 @@ instagram-to-kafka-service:
     - webdeveloper
     - webdevelopment
   welcome-message: Hello Folks!
+
+retry-config:
+  initial-interval-ms: 1000
+  max-interval-ms: 10000
+  multiplier: 2.0
+  sleep-time-ms: 2000
+  max-attempts: 3
+
+kafka-config:
+  bootstrap-servers: localhost:19092
+  schema-registry-url-key: schema.registry.url
+  schema-registry-url: http://localhost:8081
+  topic-name: ig-topic
+  topic-names-to-create:
+    - ig-topic
+  num-of-partitions: 3
+  replication-factor: 1
