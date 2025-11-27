@@ -1,0 +1,25 @@
+services:
+  instagram-to-kafka-service:
+    image: ${GROUP_ID}/instagram-to-kafka-service:${SERVICE_VERSION}
+    ports:
+      - "5005:5005"
+    volumes:
+      - "./docker-logs:/workspace/instagram-to-kafka-service/logs"
+    env_file:
+      - ../.env
+    environment:
+      JAVA_OPTS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -Xms128m -Xmx256m"
+      LOGGING_LEVEL_COM_VASYLENKO_EDU: "info"
+      LOGGING_LEVEL_ROOT: "info"
+      KAFKA_CONFIG_TOPIC_NAME: "ig-topic"
+      KAFKA_CONFIG_BOOTSTRAP_SERVERS: "kafka-broker-1:9092"
+      KAFKA_CONFIG_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
+    depends_on:
+      - kafka-broker-1
+      - schema-registry
+    networks:
+      - ${GLOBAL_NETWORK:-services}
+
+networks:
+  ${GLOBAL_NETWORK:-services}:
+    external: true
