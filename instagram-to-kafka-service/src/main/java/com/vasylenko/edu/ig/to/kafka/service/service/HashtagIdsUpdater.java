@@ -2,7 +2,7 @@ package com.vasylenko.edu.ig.to.kafka.service.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.vasylenko.edu.config.InstagramToKafkaServiceConfigData;
+import com.vasylenko.edu.config.IGToKafkaServiceConfigData;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +11,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -34,11 +35,11 @@ public class HashtagIdsUpdater implements ApplicationRunner {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(HashtagIdsUpdater.class);
 
-    private final InstagramToKafkaServiceConfigData configData;
+    private final IGToKafkaServiceConfigData configData;
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
 
-    public HashtagIdsUpdater(InstagramToKafkaServiceConfigData configData) {
+    public HashtagIdsUpdater(IGToKafkaServiceConfigData configData) {
         this.configData = configData;
         this.restTemplate = new RestTemplate();
         this.objectMapper = new ObjectMapper();
@@ -115,10 +116,12 @@ public class HashtagIdsUpdater implements ApplicationRunner {
     }
 
     private String buildHashtagSearchUrl(String igUserId, String hashtag, String accessToken) {
-        return "https://graph.facebook.com/v24.0/ig_hashtag_search" +
-                "?user_id=" + URLEncoder.encode(igUserId, StandardCharsets.UTF_8) +
-                "&q=" + URLEncoder.encode(hashtag, StandardCharsets.UTF_8) +
-                "&access_token=" + URLEncoder.encode(accessToken, StandardCharsets.UTF_8);
+        return UriComponentsBuilder
+                .fromUriString("https://graph.facebook.com/v24.0/ig_hashtag_search")
+                .queryParam("user_id", igUserId)
+                .queryParam("q", hashtag)
+                .queryParam("access_token", accessToken)
+                .toUriString();
     }
 }
 

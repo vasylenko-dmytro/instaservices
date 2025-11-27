@@ -2,7 +2,16 @@ package com.vasylenko.edu.ig.to.kafka.service.listener;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.vasylenko.edu.avro.model.IGAvroModel;
+import com.vasylenko.edu.config.IGToKafkaServiceConfigData;
+import com.vasylenko.edu.config.KafkaConfigData;
 import com.vasylenko.edu.ig.to.kafka.service.model.IGPost;
+import com.vasylenko.edu.ig.to.kafka.service.transformer.IGPostToAvroTransformer;
+import com.vasylenko.edu.kafka.producer.config.service.KafkaProducer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,25 +28,22 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
-import static com.vasylenko.edu.ig.to.kafka.service.InstagramToKafkaServiceApplication.LOGGER;
-
+@Component
 public class HashtagListener {
 
-    private final String accessToken;
-    private final String igUserId;
+    public static final Logger LOGGER = LoggerFactory.getLogger(HashtagListener.class);
+
+    private final IGToKafkaServiceConfigData igToKafkaServiceConfigData;
+
     private final Map<String, String> hashtagIds = new HashMap<>();
     private final Set<String> seenPosts = new HashSet<>();
     private final List<IGHashtagListener> listeners = new ArrayList<>();
-    private final int pollIntervalSeconds;
     private final HttpClient client = HttpClient.newHttpClient();
     private final ObjectMapper mapper = new ObjectMapper();
 
-    public HashtagListener(String accessToken,
-                           String igUserId,
-                           int pollIntervalSeconds) {
-        this.accessToken = accessToken;
-        this.igUserId = igUserId;
-        this.pollIntervalSeconds = pollIntervalSeconds;
+    public HashtagListener(
+            IGToKafkaServiceConfigData igToKafkaServiceConfigData) {
+        this.igToKafkaServiceConfigData = igToKafkaServiceConfigData;
         loadHashtagIds("/hashtag-ids.properties");
     }
 
@@ -46,6 +52,7 @@ public class HashtagListener {
     }
 
     public void start() {
+        int pollIntervalSeconds = Integer.parseInt(igToKafkaServiceConfigData.getPollIntervalSeconds());
         new Thread(() -> {
             while (true) {
                 try {
@@ -66,11 +73,7 @@ public class HashtagListener {
 
     private void pollHashtag(String hashtag, String hashtagId) {
         try {
-            String url = "https://graph.facebook.com/v24.0/" + hashtagId + "/recent_media" +
-                    "?user_id=" + igUserId +
-                    "&fields=id,permalink,caption,timestamp" +
-                    "&access_token=" + accessToken;
-
+            String url = buildRecentMediaUrl(hashtagId);
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(url))
                     .timeout(Duration.ofSeconds(10))
@@ -100,6 +103,16 @@ public class HashtagListener {
         } catch (Exception e) {
             LOGGER.error("Error polling hashtag {}: {}", hashtag, e.getMessage());
         }
+    }
+
+    private String buildRecentMediaUrl(String hashtagId) {
+        return UriComponentsBuilder
+                .fromUriString("https://graph.facebook.com/v24.0/{hashtagId}/recent_media")
+                .queryParam("user_id", igToKafkaServiceConfigData.getIgUserId())
+                .queryParam("fields", "id,permalink,caption,timestamp")
+                .queryParam("access_token", igToKafkaServiceConfigData.getIgAccessToken())
+                .buildAndExpand(hashtagId)
+                .toUriString();
     }
 
     public void loadHashtagIds(String resourcePath) {

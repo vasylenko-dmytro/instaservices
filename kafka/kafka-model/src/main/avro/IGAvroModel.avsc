@@ -6,6 +6,6 @@
     { "name": "id", "type": "string" },
     { "name": "permalink", "type": "string" },
     { "name": "caption", "type": ["null","string"], "default": null },
-    { "name": "timestamp", "type": { "type": "long", "logicalType": "timestamp-millis" } }
+    { "name": "timestamp", "type": "string"}
   ]
 }

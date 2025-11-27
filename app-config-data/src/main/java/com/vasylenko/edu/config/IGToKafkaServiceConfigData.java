@@ -9,7 +9,10 @@ import java.util.List;
 @Data
 @Configuration
 @ConfigurationProperties(prefix = "instagram-to-kafka-service")
-public class InstagramToKafkaServiceConfigData {
+public class IGToKafkaServiceConfigData {
     private List<String> instagramKeywords;
     private String welcomeMessage;
+    private String igAccessToken;
+    private String igUserId;
+    private String pollIntervalSeconds;
 }

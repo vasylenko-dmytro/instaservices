@@ -1,6 +1,7 @@
 package com.vasylenko.edu.common.config;
 
 import com.vasylenko.edu.config.RetryConfigData;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.retry.backoff.ExponentialBackOffPolicy;
 import org.springframework.retry.policy.SimpleRetryPolicy;
@@ -15,6 +16,7 @@ public class RetryConfig {
         this.retryConfigData = retryConfigData;
     }
 
+    @Bean
     public RetryTemplate retryTemplate() {
         RetryTemplate retryTemplate = new RetryTemplate();
 
