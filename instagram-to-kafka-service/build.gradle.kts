@@ -22,6 +22,7 @@ dependencies {
 
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.cloud:spring-cloud-starter-config:4.3.0")
     implementation("org.springframework.cloud:spring-cloud-starter-bootstrap:4.3.0")
 

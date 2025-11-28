@@ -16,4 +16,9 @@ dependencies {
     implementation("org.springframework.cloud:spring-cloud-starter-bootstrap:4.3.0")
     implementation("org.springframework.cloud:spring-cloud-config-server:4.3.0")
     implementation("org.springframework.boot:spring-boot-autoconfigure")
+    implementation("io.github.cdimascio:dotenv-java:3.2.0")
+}
+
+tasks.named<org.springframework.boot.gradle.tasks.bundling.BootBuildImage>("bootBuildImage") {
+    imageName = "${project.group}/config-server:${project.version}"
 }

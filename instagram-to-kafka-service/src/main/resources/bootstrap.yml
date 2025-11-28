@@ -8,3 +8,5 @@ spring:
   cloud:
     config:
       name: instagram-to-kafka-service,config-client
+      username: ${CLOUD_USERNAME}
+      password: ${CLOUD_PASSWORD}

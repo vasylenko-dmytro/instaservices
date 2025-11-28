@@ -9,6 +9,17 @@ spring:
         native:
           search-locations: file:///C:/Users/Legion/IdeaProjects/github/instaservices/config-server-repository
       fail-fast: true
-logging:
-  level:
-    org.springframework.cloud.config.server: DEBUG
+  security:
+    user:
+      name: ${CLOUD_USERNAME}
+      password: ${CLOUD_PASSWORD}
+encrypt:
+  key: ${SECRET_KEY}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always

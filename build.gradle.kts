@@ -24,6 +24,7 @@ repositories {
 dependencies {
 
 	implementation("org.springframework.boot:spring-boot-starter")
+	implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.kafka:spring-kafka:3.3.11")
     implementation("org.springframework.retry:spring-retry:2.0.12")
     implementation("org.springframework.cloud:spring-cloud-dependencies:2025.1.0")

@@ -34,9 +34,13 @@ public class InstagramToKafkaServiceApplication implements CommandLineRunner {
         Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
         String token = dotenv.get("ACCESS_TOKEN");
         String userId = dotenv.get("IG_USER_ID");
-        if (Stream.of(token, userId).anyMatch(s -> s != null && !s.isBlank())) {
+        String username = dotenv.get("CLOUD_USERNAME");
+        String password = dotenv.get("CLOUD_PASSWORD");
+        if (Stream.of(token, userId, username, password).anyMatch(s -> s != null && !s.isBlank())) {
             System.setProperty("ACCESS_TOKEN", token);
             System.setProperty("IG_USER_ID", userId);
+            System.setProperty("CLOUD_USERNAME", username);
+            System.setProperty("CLOUD_PASSWORD", password);
             LOGGER.info(".env variables loaded successfully.");
         } else {
             LOGGER.warn("Environments properties missing or blank.");
