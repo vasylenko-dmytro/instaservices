@@ -1,0 +1,10 @@
+spring:
+  config:
+    import: "optional:configserver:"
+  application:
+    name: instagram-to-kafka-service
+  profiles:
+    active: instagram_to_kafka
+  cloud:
+    config:
+      name: instagram-to-kafka-service,config-client

@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: configserver
+  profiles:
+    active: native
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: file:///C:/Users/Legion/IdeaProjects/github/instaservices/config-server-repository
+      fail-fast: true
+logging:
+  level:
+    org.springframework.cloud.config.server: DEBUG
