@@ -1,7 +1,7 @@
 package com.vasylenko.edu.ig.to.kafka.service;
 
 import com.vasylenko.edu.ig.to.kafka.service.init.StreamInitializer;
-import com.vasylenko.edu.ig.to.kafka.service.service.StreamRunner;
+import com.vasylenko.edu.ig.to.kafka.service.util.StreamRunner;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

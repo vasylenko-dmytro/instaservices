@@ -15,7 +15,7 @@ services:
       KAFKA_CONFIG_BOOTSTRAP_SERVERS: "kafka-broker-1:9092"
       KAFKA_CONFIG_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
     depends_on:
-      - kafka-broker-1
+      - kafka-broker
       - schema-registry
     networks:
       - ${GLOBAL_NETWORK:-services}

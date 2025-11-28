@@ -2,12 +2,8 @@ package com.vasylenko.edu.ig.to.kafka.service.listener;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.vasylenko.edu.avro.model.IGAvroModel;
 import com.vasylenko.edu.config.IGToKafkaServiceConfigData;
-import com.vasylenko.edu.config.KafkaConfigData;
 import com.vasylenko.edu.ig.to.kafka.service.model.IGPost;
-import com.vasylenko.edu.ig.to.kafka.service.transformer.IGPostToAvroTransformer;
-import com.vasylenko.edu.kafka.producer.config.service.KafkaProducer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -81,7 +77,23 @@ public class HashtagListener {
                     .build();
 
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            // Check HTTP status code
+            if (response.statusCode() >= 400) {
+                LOGGER.error("HTTP error polling hashtag {}: status={}, body={}",
+                        hashtag, response.statusCode(), response.body());
+                return;
+            }
+
             JsonNode root = mapper.readTree(response.body());
+
+            // Check JSON error node returned by the API
+            if (root.has("error")) {
+                String apiMessage = root.path("error").path("message").asText("");
+                LOGGER.error("API error polling hashtag {}: {}", hashtag, apiMessage);
+                return;
+            }
+
             JsonNode data = root.path("data");
 
             for (JsonNode postNode : data) {

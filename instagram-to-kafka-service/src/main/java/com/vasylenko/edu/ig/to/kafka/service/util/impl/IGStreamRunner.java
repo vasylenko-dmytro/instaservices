@@ -1,10 +1,10 @@
-package com.vasylenko.edu.ig.to.kafka.service.service.impl;
+package com.vasylenko.edu.ig.to.kafka.service.util.impl;
 
 import com.vasylenko.edu.avro.model.IGAvroModel;
 import com.vasylenko.edu.config.IGToKafkaServiceConfigData;
 import com.vasylenko.edu.config.KafkaConfigData;
 import com.vasylenko.edu.ig.to.kafka.service.listener.HashtagListener;
-import com.vasylenko.edu.ig.to.kafka.service.service.StreamRunner;
+import com.vasylenko.edu.ig.to.kafka.service.util.StreamRunner;
 import com.vasylenko.edu.ig.to.kafka.service.transformer.IGPostToAvroTransformer;
 import com.vasylenko.edu.kafka.producer.config.service.KafkaProducer;
 import org.slf4j.Logger;
