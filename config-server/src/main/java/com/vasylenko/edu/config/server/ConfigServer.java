@@ -23,10 +23,15 @@ public class ConfigServer {
         Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
         String username = dotenv.get("CLOUD_USERNAME");
         String password = dotenv.get("CLOUD_PASSWORD");
+        String ghUsername = dotenv.get("GHL_USER");
+        String ghPassword = dotenv.get("GHP_TOKEN");
         String encryptKey = dotenv.get("SECRET_KEY");
-        if (Stream.of(username, password, encryptKey).anyMatch(s -> s != null && !s.isBlank())) {
+        if (Stream.of(username, password, ghUsername, ghPassword, encryptKey)
+                .anyMatch(s -> s != null && !s.isBlank())) {
             System.setProperty("CLOUD_USERNAME", username);
             System.setProperty("CLOUD_PASSWORD", password);
+            System.setProperty("GHL_USER", ghUsername);
+            System.setProperty("GHP_TOKEN", ghPassword);
             System.setProperty("SECRET_KEY", encryptKey);
             LOGGER.info(".env variables loaded successfully.");
         } else {

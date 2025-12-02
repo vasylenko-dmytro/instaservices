@@ -1,14 +1,16 @@
 spring:
   application:
     name: configserver
-  profiles:
-    active: native
   cloud:
     config:
       server:
-        native:
-          search-locations: file:///C:/Users/Legion/IdeaProjects/github/instaservices/config-server-repository
-      fail-fast: true
+        git:
+          uri: https://github.com/vasylenko-dmytro/config-server-repository.git
+          clone-on-start: true
+          username: ${GHL_USER}
+          password: ${GHP_TOKEN}
+          default-label: master
+    fail-fast: true
   security:
     user:
       name: ${CLOUD_USERNAME}

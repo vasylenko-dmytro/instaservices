@@ -1,6 +1,4 @@
 spring:
-  config:
-    import: "optional:configserver:"
   application:
     name: instagram-to-kafka-service
   profiles:
@@ -10,3 +8,9 @@ spring:
       name: instagram-to-kafka-service,config-client
       username: ${CLOUD_USERNAME}
       password: ${CLOUD_PASSWORD}
+      uri: http://config-server:8888
+      fail-fast: true
+      retry:
+        initial-interval: 2000
+        max-attempts: 20
+        multiplier: 1.3
